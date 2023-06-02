@@ -1,5 +1,6 @@
 package com.example.bd2.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,5 +38,10 @@ public class Sale {
     @Getter
     @JoinColumn(name = "funcionario")
     Employee employee;
+
+    @OneToMany(mappedBy = "sale")
+    @Setter
+    @Getter
+    List<Items> items;
 
 }
