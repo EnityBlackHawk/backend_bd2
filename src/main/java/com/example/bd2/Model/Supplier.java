@@ -1,13 +1,10 @@
 package com.example.bd2.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import jakarta.persistence.Id;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +13,8 @@ import jakarta.persistence.Id;
 public class Supplier {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "supplierGen")
+    @SequenceGenerator(name = "supplierGen", sequenceName = "tb_fornecedores_seq", allocationSize = 1)
     @Column(name = "for_codigo")
     @Setter
     @Getter

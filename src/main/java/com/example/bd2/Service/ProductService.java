@@ -21,8 +21,9 @@ public class ProductService {
 
     public boolean Add(Product product)
     {
-        if(supplierService.FindById(product.getSupplier().getId()) == null)
+        if( product.getSupplier().getId() == null || supplierService.FindById(product.getSupplier().getId()) == null)
             supplierService.Add(product.getSupplier());
+
         return productRepository.save(product) != null;
     }
 

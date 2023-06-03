@@ -12,6 +12,10 @@ public class EmployeeDTO {
 
     @Setter
     @Getter
+    private Long id;
+
+    @Setter
+    @Getter
     @Column(name = "fun_nome")
     private String name;
 

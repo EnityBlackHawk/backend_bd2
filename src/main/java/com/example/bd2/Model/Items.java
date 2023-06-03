@@ -13,6 +13,8 @@ import lombok.Setter;
 public class Items {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "itemsGen")
+    @SequenceGenerator(name = "itemsGen", sequenceName = "tb_itens_seq", allocationSize = 1)
     @Setter
     @Getter
     @Column(name = "ite_codigo")

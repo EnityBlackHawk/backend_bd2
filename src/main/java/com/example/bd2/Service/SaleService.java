@@ -5,10 +5,10 @@ import com.example.bd2.Model.Sale;
 import com.example.bd2.Repository.SaleRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +17,9 @@ public class SaleService {
 
     @Autowired
     private SaleRepository repository;
+
+    @Autowired
+    private ItemsService itemsService;
 
 
     public List<SaleDTO> GetAll()
@@ -29,6 +32,21 @@ public class SaleService {
             ret.add(mm.map(s, SaleDTO.class));
         });
         return ret;
+    }
+
+    public Boolean Add(Sale sale)
+    {
+        sale.setTime(Timestamp.valueOf(LocalDateTime.now()));
+        var id = repository.save(sale).getCode();
+        sale.setCode(id);
+        for (var i : sale.getItems())
+        {
+            i.setSale(sale);
+            i.setPartialValue(i.getProduct().getValue() * i.getQuantity());
+            itemsService.Add(i);
+
+        }
+        return true;
     }
 
 }

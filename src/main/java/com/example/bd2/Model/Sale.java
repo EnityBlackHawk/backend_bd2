@@ -18,6 +18,8 @@ import java.util.List;
 public class Sale {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "saleGen")
+    @SequenceGenerator(name = "saleGen", sequenceName = "tb_vendas_seq", allocationSize = 1)
     @Setter
     @Getter
     @Column(name = "ven_codigo")
