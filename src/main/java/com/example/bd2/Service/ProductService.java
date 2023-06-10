@@ -1,5 +1,6 @@
 package com.example.bd2.Service;
 
+import com.example.bd2.Exception.SupplierNotFoundException;
 import com.example.bd2.Model.Product;
 import com.example.bd2.Repository.ProductRepository;
 import com.example.bd2.Repository.SupplierRepository;
@@ -22,7 +23,8 @@ public class ProductService {
     public boolean Add(Product product)
     {
         if( product.getSupplier().getId() == null || supplierService.FindById(product.getSupplier().getId()) == null)
-            supplierService.Add(product.getSupplier());
+            //supplierService.Add(product.getSupplier());
+            throw new SupplierNotFoundException("Fornecedor nao encontrado - id: " + product.getSupplier().getId());
 
         return productRepository.save(product) != null;
     }

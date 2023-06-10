@@ -5,6 +5,8 @@ import com.example.bd2.Repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SupplierService {
 
@@ -21,5 +23,7 @@ public class SupplierService {
     {
         return repository.findById(id).orElse(null);
     }
+
+    public List<Supplier> FindAll() {return repository.findAll();}
 
 }
