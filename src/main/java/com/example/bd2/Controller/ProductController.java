@@ -1,5 +1,6 @@
 package com.example.bd2.Controller;
 
+import com.example.bd2.Exception.ProductNotFoundException;
 import com.example.bd2.Model.Product;
 import com.example.bd2.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,13 @@ public class ProductController {
     public ResponseEntity<Boolean> Add(@RequestBody Product product)
     {
         return ResponseEntity.ok(service.Add(product));
+    }
+
+    public ResponseEntity<Product> FindById(@PathVariable Long id)
+    {
+        Product p = service.FindById(id);
+        if(p == null) throw new ProductNotFoundException("Produto com id: " + id + " não encontrado");
+        return ResponseEntity.ok(p);
     }
 
 }

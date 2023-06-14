@@ -21,6 +21,9 @@ public class SaleService {
     @Autowired
     private ItemsService itemsService;
 
+    @Autowired
+    private ProductService productService;
+
 
     public List<SaleDTO> GetAll()
     {
@@ -39,13 +42,23 @@ public class SaleService {
         sale.setTime(Timestamp.valueOf(LocalDateTime.now()));
         var id = repository.save(sale).getCode();
         sale.setCode(id);
+        var vtotal = 0.0f;
         for (var i : sale.getItems())
         {
             i.setSale(sale);
-            i.setPartialValue(i.getProduct().getValue() * i.getQuantity());
+            var p = i.getProduct();
+
+            if(p.getValue() == 0)
+                p = productService.FindById(p.getCode());
+
+            var v = p.getValue() * i.getQuantity();
+            vtotal += v;
+            i.setPartialValue(v);
             itemsService.Add(i);
 
         }
+        sale.setTotalValue(vtotal);
+        repository.save(sale);
         return true;
     }
 
