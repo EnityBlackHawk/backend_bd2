@@ -21,6 +21,7 @@ public class ProductController {
     {
         return ResponseEntity.ok(service.GetAll());
     }
+
     @PostMapping(value = "/add")
     public ResponseEntity<Boolean> Add(@RequestBody Product product)
     {

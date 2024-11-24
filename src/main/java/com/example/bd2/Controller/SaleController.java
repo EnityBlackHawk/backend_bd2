@@ -1,8 +1,10 @@
 package com.example.bd2.Controller;
 
 import com.example.bd2.DTO.SaleDTO;
+import com.example.bd2.DTO.add.SaleAddDTO;
 import com.example.bd2.Model.Sale;
 import com.example.bd2.Service.SaleService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,6 @@ public class SaleController {
     }
 
     @PostMapping(value = "/add")
-    public ResponseEntity<Boolean> Add(@RequestBody Sale sale) {return ResponseEntity.ok(service.Add(sale));}
+    public ResponseEntity<SaleDTO> Add(@Valid @RequestBody SaleAddDTO sale) {return ResponseEntity.ok(service.Add(sale));}
 
 }

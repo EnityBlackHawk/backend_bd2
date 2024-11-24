@@ -22,11 +22,17 @@ public class ProductService {
 
     public boolean Add(Product product)
     {
-        if( product.getSupplier().getId() == null || supplierService.FindById(product.getSupplier().getId()) == null)
-            //supplierService.Add(product.getSupplier());
+        if( product.getSupplier().getId() == null || supplierService.FindById(product.getSupplier().getId()) == null) {
             throw new SupplierNotFoundException("Fornecedor nao encontrado - id: " + product.getSupplier().getId());
+        }
+
 
         return productRepository.save(product) != null;
+    }
+
+    public Product update(Product product)
+    {
+        return productRepository.save(product);
     }
 
     public Product FindById(Long id)

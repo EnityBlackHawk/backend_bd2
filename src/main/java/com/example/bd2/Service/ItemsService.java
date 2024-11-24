@@ -17,4 +17,9 @@ public class ItemsService {
         repository.save(items);
     }
 
+    public void Add(Iterable<Items> items)
+    {
+        repository.saveAll(items);
+    }
+
 }
