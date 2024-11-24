@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  build_push:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@main
+
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker image
+        run: docker-compose build
+
+      - name: Push Docker image
+        run: docker-compose push
