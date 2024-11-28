@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@FeignClient(name = "product-api", url = "localhost:8081")
+@FeignClient(name = "product-api", url = "${product-api.url}")
 public interface ProductFeignClient {
 
     @GetMapping("/product/getAll")
