@@ -1,9 +1,9 @@
 version: '3.8'
 services:
-  db_vendas:
+  db-vendas:
     image: postgres:latest
     networks:
-      - network_vendas
+      - network-vendas
     environment:
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: Loja
@@ -12,15 +12,17 @@ services:
       - ./data:/var/lib/postgresql/data
     ports:
         - "5432:5432"
-  cmp_vendas:
+  cmp-vendas:
     build: .
     image: entityblackhawk/cmp-vendas:latest
+    environment:
+      DATABASE_HOST_PORT: db-vendas:5432
     networks:
-      - network_vendas
+      - network-vendas
     ports:
       - "8080:8080"
     depends_on:
-        - db_vendas
+        - db-vendas
 networks:
-  network_vendas:
+  network-vendas:
     driver: bridge
