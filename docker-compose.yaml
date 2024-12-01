@@ -10,8 +10,7 @@ services:
       POSTGRES_USER: postgres
     volumes:
       - ./data:/var/lib/postgresql/data
-    ports:
-        - "5432:5432"
+
   cmp-vendas:
     build: .
     image: entityblackhawk/cmp-vendas:latest
@@ -19,8 +18,6 @@ services:
       DATABASE_HOST_PORT: db-vendas:5432
     networks:
       - network-vendas
-    ports:
-      - "8080:8080"
     depends_on:
         - db-vendas
 networks:
