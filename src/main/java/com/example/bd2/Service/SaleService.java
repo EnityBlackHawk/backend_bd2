@@ -27,7 +27,7 @@ public class SaleService {
     private ItemsService itemsService;
 
     @Autowired
-    private ProductService productService;
+    private ProductFeignClient productService;
     @Autowired
     private EmployeeService employeeService;
 
@@ -57,7 +57,7 @@ public class SaleService {
             item.setSale(sale);
             var product = item.getProduct();
 
-            product = productService.FindById(product.getCode());
+            product = productService.getById(product.getCode());
 
             if(product == null) {
                 throw new ProductNotFoundException("Produto não encontrado");
@@ -69,7 +69,7 @@ public class SaleService {
 
             product.setQuantity(product.getQuantity() - item.getQuantity());
 
-            product = productService.update(product);
+            product = productService.update(product.getCode(), product);
 
             item.setProduct(product);
 
