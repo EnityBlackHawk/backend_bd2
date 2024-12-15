@@ -1,7 +1,12 @@
-FROM eclipse-temurin:21-jdk-alpine AS builder
+FROM maven:3-eclipse-temurin-21-alpine AS builder
 WORKDIR /app
-COPY . .
-RUN ./mvnw package
+
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+
+COPY src ./src
+RUN mvn package
+
 
 FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
